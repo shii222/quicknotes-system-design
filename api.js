@@ -41,6 +41,10 @@ function showStatus(message, type = "") {
 function showEmptyState() {
     if (notesList.children.length === 0) {
         const empty = document.createElement("li");
+
+        // Mark the placeholder so it can be removed later.
+        empty.dataset.empty = "true";
+
         empty.textContent = "No notes available.";
         notesList.appendChild(empty);
     }
@@ -161,7 +165,7 @@ async function createNote(event) {
 
         const newNote = result.data;
 
-        // Remove the empty-state message if present.
+        // Remove the empty-state placeholder if present.
         const emptyMessage = notesList.querySelector(
             "li[data-empty]"
         );
